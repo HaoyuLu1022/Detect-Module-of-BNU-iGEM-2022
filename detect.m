@@ -94,7 +94,7 @@ num_elements = size(init);
 
 %% 定义化学计量矩阵
 % detect_stoch = [];
-detect_stoch = cell2mat(struct2cell(load("Detect/detect-stoch.mat")));
+detect_stoch = cell2mat(struct2cell(load("Detect-Module-of-BNU-iGEM-2022/detect-stoch.mat")));
 % 定义反应通道的时间序列
 t1 = 86400;
 tmesh = linspace(0, t1, t1);
