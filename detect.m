@@ -94,7 +94,7 @@ num_elements = size(init);
 
 %% 定义化学计量矩阵
 % detect_stoch = [];
-detect_stoch = cell2mat(struct2cell(load("Detect-Module-of-BNU-iGEM-2022/detect-stoch.mat")));
+detect_stoch = cell2mat(struct2cell(load("Detect/detect-stoch.mat")));
 % 定义反应通道的时间序列
 t1 = 86400;
 tmesh = linspace(0, t1, t1);
@@ -140,12 +140,12 @@ function trajectory = SSA(tmesh, par, prop, stoch, init)
     
     while t < tmesh(end)
         Q = feval(prop, state, par);        %calculating propensities of the reactions
-        for i=1:size(Q)
-            if Q(i) < 0
-                Q(i) = +0.0; % since propensity functions include square items, when the system lacks something
-                % some propensity functions may be positive and bigger and bigger as the iteration goes on
-            end
-        end
+%         for i=1:size(Q)
+%             if Q(i) < 0
+%                 Q(i) = +0.0; % since propensity functions include square items, when the system lacks something
+%                 % some propensity functions may be positive and bigger and bigger as the iteration goes on
+%             end
+%         end
         qq = Q(Q > 0);
         Qs = sum(Q);                        %total propensity
         dt = -log(rand())/Qs;               %generating time to the next reaction
@@ -153,7 +153,8 @@ function trajectory = SSA(tmesh, par, prop, stoch, init)
         state = state + stoch(:, R);        %updating state
         if ~isempty(find(state < 0, 1))     %in case there are substrates of negative amount
             state = state - stoch(:, R);
-            state = state + stoch(:, randperm(numel(qq), 1));
+            [~, n] = find(Q == qq(randperm(numel(qq), 1)));
+            state = state + stoch(:, n(randperm(numel(n), 1)));
         end
         t = t + dt;                         %updating time
     

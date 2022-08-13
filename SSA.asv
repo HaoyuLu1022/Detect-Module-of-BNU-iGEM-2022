@@ -1,4 +1,4 @@
-function trajectory = SSA(tmesh, par, prop, stoch, init, thcstart, thcend)
+function trajectory = SSA(tmesh, par, prop, stoch, init, thcstart, thcend, flag)
     %tmesh - time mesh on which solution should be returned
     %per - parameters of the pathway
     %prop - definition of propensity functions
@@ -13,9 +13,10 @@ function trajectory = SSA(tmesh, par, prop, stoch, init, thcstart, thcend)
     trajectory(:, 1) = init(:);                      %setting initial value as the first element in trajectory
     cindx = 2;                                       %current trajectory index
     N = length(tmesh);                               %number of time points
-%     app = detect_gui;
     
     while t < tmesh(end)
+        if flag == 0
+            
         Q = feval(prop, state, par);        %calculating propensities of the reactions
 %         for i=1:size(Q)
 %             if Q(i) < 0
@@ -34,12 +35,6 @@ function trajectory = SSA(tmesh, par, prop, stoch, init, thcstart, thcend)
             state = state + stoch(:, n(randperm(numel(n), 1)));
         end
         t = t + dt;                         %updating time
-        
-%         pause(1e-4);
-%         if exeFlag == false
-%             error('User aborted execution');
-%             %         return;
-%         end
     
         %writing the output
         while cindx <= N && t > tmesh(cindx)
