@@ -6,6 +6,22 @@ This is the stochastic simulation version of the **Detect Module** designed by o
 
 Basically, it's based on the **Gillespie/SSA algorithm**, which is usually adopted in the fields of computational biology and chemistry, etc. But as the situation in our project is rather complicated (or exactly, "real"), the open-source versions online are mostly not ideal when simulation. So I came up with this **MODIFIED** version of Gillespie algorithm
 
+## Quick Start
+
+Due to reasons know to all, it's not convenient to download large files from GitHub in China. So the much smaller **DetectGUIinstaller_web.exe** is recommended since it doesn't include MATLAB runtime support which will be downloaded and installed in your installation process. 
+
+But if you fail to download the runtime support file, the only option left is **DetectGUIinstaller_mcr.exe**. It includes the runtime support files so there is no need to download anything.
+
+After all packages installed,
+
+1.   simply click "**Run**" button and start simulation.
+     1.   During simulation, click on the plot area on the right panel and you can see the simulated data plotted (may experience some stutters).
+     2.   During simulation, if the iterations cost too much time, you can regard that as a bug and click "**Stop**". Simulated data won't be saved in this way.
+2.   After simulation, the data will be automatically plotted on the right panel.
+3.   After simulation, you can click "**Save**" to save the simulation result in a local directory "Detect-Result". All data will be stored as a "detect-24h(*).mat" file.
+4.   You can click on the "**Clear**" button to clear your plotting.
+5.   **THC start**, **THC end** and **tmesh** are 3 adjustable properties of the simulation system, and are default to 21600s(6h), 43200s(12h) and 84600s(24h) respectively.
+
 ## Biological Design
 
 As I'm a student majoring in Computer Science, this is the part that I fail to understand very clearly. And I suppose that most of you come here for the code, not the elaborated, boring explanation of how the system works biologically (which could be wrong actually lol). So I just post the pathway of the Detect Module.
